@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./EightBall.css";
 
 /** EightBall magically answers your questions.
@@ -21,7 +21,6 @@ function EightBall({ answers = DEFAULT_ANSWERS }) {
 
   const myStyle = {
     backgroundColor: eightBall.color,
-    color: "white"
   };
 
   function handleEightBallClick(evt) {
