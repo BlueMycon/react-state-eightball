@@ -11,13 +11,12 @@ import "./EightBall.css";
  *
  * App -> EightBall
  */
-
+const DEFAULT_EIGHTBALL = {msg: "Think of a Question", color: "black"};
+const DEFAULT_RECORD = {green: 0, goldenrod: 0, red: 0};
 
 function EightBall({ answers = DEFAULT_ANSWERS }) {
-  const [eightBall, setEightBall] = useState({
-    msg: "Think of a Question",
-    color: "black",
-  });
+  const [eightBall, setEightBall] = useState(DEFAULT_EIGHTBALL);
+  const [colorRecord, setColorRecord] = useState(DEFAULT_RECORD)
 
   const myStyle = {
     backgroundColor: eightBall.color,
@@ -26,15 +25,34 @@ function EightBall({ answers = DEFAULT_ANSWERS }) {
   function handleEightBallClick(evt) {
     const answer = answers[Math.floor(Math.random() * answers.length)];
     setEightBall(answer);
+    
+    const updatedRecord = {...colorRecord}
+    updatedRecord[answer.color] += 1
+    setColorRecord(updatedRecord);
+  }
+
+  function handleReset(evt) {
+    setEightBall(DEFAULT_EIGHTBALL);
+    setColorRecord(DEFAULT_RECORD);
   }
 
   return (
-    <div
-      className="EightBall"
-      style={myStyle}
-      onClick={handleEightBallClick}
-    >
-      <p>{eightBall.msg}</p>
+    <div>
+      <div
+        className="EightBall"
+        style={myStyle}
+        onClick={handleEightBallClick}
+      >
+        <p>{eightBall.msg}</p>
+      </div>
+      <div className="EightBall-button">
+        <button onClick={handleReset}>Reset</button>
+      </div>
+      <div className="Eightball-record">
+        <p>Green Count: {colorRecord.green}</p>
+        <p>Golden Count: {colorRecord.goldenrod}</p>
+        <p>Red Count: {colorRecord.red}</p>
+      </div>
     </div>
   );
 }
